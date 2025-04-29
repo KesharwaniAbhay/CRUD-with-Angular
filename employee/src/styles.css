@@ -1,0 +1,67 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+@import 'primeflex/primeflex.css';
+
+/* body {
+    background-color: rgb(238, 238, 238);
+    margin: 0;
+    padding: 0;
+} */
+html,
+body {
+    margin: 0px;
+    height: 100%;
+}
+
+
+.p-paginator {
+    background: #ffffff;
+    color: #6b7280;
+    border: solid #f3f4f6;
+    border-width: 0;
+    padding: 0.5rem rem;
+    border-radius: 6px;
+}
+
+.p-button {
+    padding: 0.4rem .9rem;
+}
+
+.p-dataview .p-dataview-header {
+    padding: 0.5rem 0.5rem;
+}
+
+.p-dataview-content {
+    height: 65vh;
+    /* overflow: scroll; */
+}
+
+.p-datatable .p-datatable-tbody>tr>td {
+    text-align: left;
+    border: 1px solid #ccc;
+    border-width: 0 0 1px 0;
+    padding: 0.5rem 1rem;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    width: 35px !important;
+}
+
+.p-dialog-footer {
+    padding: 0 5rem 0.6rem 1.5rem !important;
+}
+
+.p-button-danger {
+    margin-left: 10px !important;
+}
+
+.p-dialog-header {
+
+
+    padding: 0.5rem;
+
+}
+
+.p-button-label {
+    font-weight: 100;
+}

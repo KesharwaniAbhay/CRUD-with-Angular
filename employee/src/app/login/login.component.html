@@ -1,0 +1,36 @@
+<p-toast></p-toast>
+
+
+<div class="login-comp">
+    <div class="login-image">
+        <!-- <div class="">
+            <p-image class="image-DN" src="../../assets/images/DN.jpg" alt="Image" />
+        </div> -->
+        <p class="welcome">Welcome To</p>
+        <p class="welcome">Digital</p>
+        <p class="welcome">Navigation!</p>
+        <h1>Innovation! </h1>
+    </div>
+    <div class=" login-container">
+        <h1>Login</h1>
+
+        <div class="login-body">
+            <form [formGroup]="loginDetail">
+                <input type="text" pInputText pTooltip="UserName!" tooltipEvent="focus" formControlName="username"
+                    class="txt" type="text" name="username" placeholder="UserName" (keydown.enter)="login()">
+
+                <input pInputText pTooltip="Password!" tooltipEvent="focus" formControlName="password" class="pwd"
+                    type="password" name="Password" placeholder="Password" (keydown.enter)="login()">
+            </form>
+        </div>
+        <div class="login-btn">
+            <button class="btn" (click)="login()" (keydown.enter)="login()">Login</button>
+
+        </div>
+        <div class="new-user">
+            <p>New User Register Here:- </p>&nbsp;
+            <p class="login-text"><a routerLink="/">Register Here</a></p>
+        </div>
+    </div>
+
+</div>

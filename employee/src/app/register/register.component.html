@@ -1,0 +1,69 @@
+<p-toast></p-toast>
+<div class="mainDiv">
+
+    <div class="login-image">
+        <!-- <div class="">
+            <p-image class="image-DN" src="../../assets/images/DN.jpg" alt="Image" />
+        </div> -->
+        <p class="welcome">Welcome To</p>
+        <p class="welcome">Digital</p>
+        <p class="welcome">Navigation!</p>
+        <h1>Innovation! </h1>
+    </div>
+
+
+    <div class="login-container">
+
+        <h1>Registration</h1>
+        <form [formGroup]="userDetails" class="form-content">
+            <div class="register-page">
+
+                <img [src]="ImageVisible ? imageUrl : '../../assets/images/default.png'" formControlName="image_path"
+                    class="userImage" id="upload_image" alt="Click to Upload" (click)="onImageClick()" width="150px"
+                    height="150px" accept=".png, .jpg, .jpeg" />
+
+                <input type="file" #fileInput style="display: none;" (keydown.enter)="submit()"
+                    enctype="multipart/form-data" (change)="upload_image($event)" />
+
+                <input class="inp" pInputText pTooltip=" Fullname" (keydown.enter)="submit()" tooltipEvent="focus"
+                    formControlName="Fullname" type="text" placeholder="Full Name" pInputText />
+
+
+                <input class="inp" pInputText pTooltip=" Username!" (keydown.enter)="submit()" tooltipEvent="focus"
+                    formControlName="username" type="text" placeholder="Username" pInputText />
+
+                <input class="inp" pInputText pTooltip=" Password!." (keydown.enter)="submit()" tooltipEvent="focus"
+                    formControlName="password" type="password" placeholder="Password" pInputText />
+
+                <input class="inp" pInputText pTooltip="Phone!" (keydown.enter)="submit()" tooltipEvent="focus"
+                    formControlName="phone_no" type="text" placeholder="Contact No.">
+
+                <small *ngIf="userDetails.get('phone_no')?.errors?.['pattern']">
+                    Enter a valid 10-digit mobile number.
+                </small>
+
+
+                <input class="num" pInputText pTooltip="Age!" (keydown.enter)="submit()" tooltipEvent="focus"
+                    formControlName="age" type="number" placeholder="Age">
+
+                <small
+                    *ngIf="userDetails.get('age')?.errors?.['min'] || userDetails.get('age')?.errors?.['pattern']">Age
+                    must be Vaild</small>
+
+                <input pInputText pTooltip="Address !" tooltipEvent="focus" class="inp-add" formControlName="Address"
+                    type="text" name="Address" (keydown.enter)="submit()" placeholder="Current Address">
+
+            </div>
+        </form>
+
+        <div class="submit-container">
+            <button class="btn" (click)="submit()">Register</button>
+
+        </div>
+
+        <div class="login-content">
+            <P class="text-login">Existing User :-</P> &nbsp;
+            <p routerLink="/login" class="link-text">Login here</p>
+        </div>
+    </div>
+</div>

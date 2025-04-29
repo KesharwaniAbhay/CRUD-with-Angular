@@ -1,0 +1,354 @@
+<!-- <p-confirmPopup />  -->
+<p-toast />
+<p-confirmDialog />
+
+
+
+<div class="dashboard-container">
+
+
+
+    <div class="logout">
+        <div class="head-h">
+
+            <h1 class="heading">Employee Management</h1>
+        </div>
+        <p-button (click)="logout()" label="Small" label="Logout" />
+
+        <div class="username-photo">
+            <img [src]="'http://192.168.1.179/Layout365Data/Abhay/' + loginUserData[0]?.image_path"
+                onerror="this.onerror=null;this.src='../../assets/images/default.png';" class="userImage1">
+
+            <div>
+
+                <p (click)="op.toggle($event)" pTooltip="{{ loginUserData[0]?.username }}" tooltipPosition="top"
+                    style="font-size: small; font-weight: bold; margin-top: 0; cursor: pointer;">
+                    {{ loginUserData[0]?.Fullname }}
+                </p>
+
+                <p-overlayPanel #op>
+                    <div class="flex flex-column gap-3 w-25rem">
+                        <div>
+                            <div class="" *ngFor="let member of loginUserData">
+                                <div style="font-family: Arial, sans-serif; line-height: 1.6; margin: 10px;">
+                                    <p style="font-size: 20px; font-weight: bold; margin-bottom: 0;">{{member.username}}
+                                    </p>
+
+                                    <div style="margin-top: 10px;">
+                                        <p><strong>Address:</strong> {{ member.Address }}</p>
+
+                                        <p><strong>Phone:</strong> {{ member.phone_no }}</p>
+                                    </div>
+                                </div>
+
+                                <p-button size="small" class="delete-btn " (click)="showDialogProfile(member)" label="
+                                Edit" />
+                            </div>
+                        </div>
+                    </div>
+                </p-overlayPanel>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- search functaonlailty -->
+
+    <div style="color: red;">
+        <p-dialog [header]="header" [modal]="true" [(visible)]="Editvisible" [style]="{ width: '25rem' }">
+            <span *ngIf="header.includes('Edit')==true" class="p-text-secondary block mb-4">Update your
+                information.</span>
+
+            <form [formGroup]="userDetails">
+
+                <div class="addimage">
+                    <img *ngIf="isProfile==true"
+                        src="{{imageUrll==null || imageUrll==undefined? '../../assets/images/default.png':imageUrll}}"
+                        onerror="this.onerror=null; this.src='../../assets/images/default.png';" class="userImage"
+                        width="150px" height="150px" id="uploadImage" alt="Click to Upload" (click)="onImageClick()"
+                        accept=".png, .jpg, .jpeg" />
+                    <img *ngIf="isProfile==false"
+                        src="{{imageUrl==null || imageUrl==undefined? '../../assets/images/default.png':imageUrl}}"
+                        width="150px" height="150px"
+                        onerror="this.onerror=null;this.src='../../assets/images/default.png';" class="userImage"
+                        id="uploadImage" alt="Click to Upload" (click)="onImageClick()" accept=".png, .jpg, .jpeg" />
+                    <input type="file" #fileInput style="display: none;" enctype="multipart/form-data"
+                        (change)="upload_image($event)" />
+                </div>
+
+                <div class="edit-text-field">
+                    <input pInputText pTooltip="Fullname !" tooltipEvent="focus" formControlName="Fullname"
+                        placeholder="Full Name" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="edit-text-field">
+                    <input pInputText pTooltip="Username !" tooltipEvent="focus" formControlName="username"
+                        placeholder="Username" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="edit-text-field">
+                    <input type="password" pInputText pTooltip="Password !" tooltipEvent="focus"
+                        formControlName="password" placeholder="Password" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="edit-text-field">
+                    <input pInputText pTooltip="Phone No!" tooltipEvent="focus" formControlName="phone_no"
+                        placeholder="Contact No." class="flex-auto" autocomplete="off" id="phone" />
+                    <small *ngIf="userDetails.get('phone_no')?.errors?.['pattern']">
+                        Enter a valid 10-digit mobile number.
+                    </small>
+
+                </div>
+                <div class="edit-text-field">
+                    <input pInputText pTooltip="Age !" tooltipEvent="focus" formControlName="age" placeholder="Age"
+                        class="flex-auto" autocomplete="off" name="age" />
+                    <small
+                        *ngIf="userDetails.get('age')?.errors?.['min'] || userDetails.get('age')?.errors?.['pattern']">Enter
+                        valid age</small>
+
+                </div>
+                <div class="edit-text-field">
+                    <input pInputText pTooltip="Address !" tooltipEvent="focus" formControlName="Address"
+                        placeholder="Address" class="flex-auto" autocomplete="off" />
+                </div>
+            </form>
+            <div class="edit-text-fields">
+                <p-button class="inside-edit-btn" label="Cancel" severity="secondary" (click)=" edit()" />
+                <p-button class="inside-edit-btn" [label]="header.includes('Edit')==true?'Update':'Save'"
+                    (click)="header.includes('Edit')==true?saveEdits():submitUser()" />
+            </div>
+        </p-dialog>
+    </div>
+
+
+
+    <!-- table with filter  -->
+
+
+    <!-- <div class="card">
+        <p-table [value]="usersAllData" [tableStyle]="{'min-width': '60rem'}" sortMode="multiple">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="Username" style="width:15%">
+                        Username <p-sortIcon field="Username" />
+                    </th>
+                    <th pSortableColumn="Fullname" style="width:20%">
+                        Name <p-sortIcon field="Fullname" />
+                    </th>
+                    <th pSortableColumn="Address" style="width:20%">
+                        Address <p-sortIcon field="Address" />
+                    </th>
+                    <th pSortableColumn="age" style="width:10%">
+                        age <p-sortIcon field="age" />
+                    </th>
+                    <th pSortableColumn="phone_no" style="width:15%">
+                        Contact no. <p-sortIcon field="phone_no" />
+                    </th>
+                    <th style="width:15%">
+                        Actions
+                    </th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-userData>
+                <tr>
+                    <td><img [src]="'http://192.168.1.179/Layout365Data/Abhay/' + userData.image_path" class="userImage"
+                            alt="" onerror="this.onerror=null; this.src='../../assets/images/default.png';"> {{
+                        userData.username }}</td>
+                    <td>{{ userData.Fullname }}</td>
+                    <td>{{ userData.Address }}</td>
+                    <td>{{ userData.age }}</td>
+                    <td>{{ userData.phone_no }}</td>
+                    <td style="width: 25%; margin-right:10%">
+                        <p-button (click)="confirm2(userData)" label="Delete" severity="danger" [outlined]="true" />
+                        &nbsp;
+                        <p-button class="delete-btn " (click)="showDialog(userData.username)" label="
+                        Edit" />
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+ -->
+
+
+
+    <!-- table content -->
+    <!-- 
+    <div class="data-table">
+        <p-table [paginator]="true" [rows]="4" [rowsPerPageOptions]="[5, 10, 20]" [value]="usersAllData"
+            styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '25rem' }">
+            <ng-template pTemplate="header">
+                <tr style="width: 20%;">
+                    <th class="table-head" style="width: 20%;">Username</th>
+                    <th class="table-head">Name</th>
+                    <th class="table-head">Address</th>
+                    <th class="table-head">age</th>
+                    <th class="table-head">Mob no.</th>
+                    <th class="table-head" style="width: 10%;">Actions</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-userData>
+                <tr>
+
+                    <td><img [src]="'http://192.168.1.179/Layout365Data/Abhay/' + userData.image_path" class="userImage"
+                            alt="" onerror="this.onerror=null; this.src='../../assets/images/default.png';"> {{
+                        userData.username }}</td>
+                    <td>{{ userData.Fullname }}</td>
+                    <td>{{ userData.Address }}</td>
+                    <td>{{ userData.age }}</td>
+                    <td>{{ userData.phone_no }}</td>
+                    <td style="width: 25%; margin-right:10%">
+                        <p-button (click)="confirm2(userData)" label="Delete" severity="danger" [outlined]="true" />
+                        &nbsp;
+                        <p-button class="delete-btn " (click)="showDialog(userData.username)" label="
+                        Edit" />
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </div> -->
+
+
+
+
+
+
+    <div class="card" style="margin: 0rem 1rem 0rem 1rem;">
+        <div class="datarows">
+            <div class="totalCount leftSideData">
+                <div class="display-data">
+                    <p class="para">Total Users: {{ usersAllData.length }}</p>
+
+                </div>
+            </div>
+            <div class="totalCount rightSideData">
+                <div class="btn-body">
+
+                    <p-iconField iconPosition="left">
+                        <p-inputIcon styleClass="pi pi-search" />
+                        <input type="text" (keyup)="searchData($event)" pInputText placeholder="Search" />
+                    </p-iconField>
+
+                    <!-- <p-button class="delete-btn" (click)="searchData(e)" label="Find" /> -->
+                    <p-button class="loginbutton" [rounded]="true" size="small" severity="success" icon="pi pi-plus"
+                        (click)="Adduser()" label="Add User" />
+
+                </div>
+            </div>
+
+        </div>
+        <p-dataView #dv [value]="usersAllData" [rows]="8" [paginator]="true">
+
+            <ng-template pTemplate="header">
+                <div class="flex justify-content-end">
+                    <p-dataViewLayoutOptions />
+                </div>
+            </ng-template>
+            <ng-template pTemplate="list" let-usersAllData>
+                <p-table [value]="usersAllData" [tableStyle]="{'min-width': '60rem'}" [scrollable]="true"
+                    scrollHeight="480px" sortMode="multiple">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 5%">
+                                S.NO.
+                            </th>
+                            <th pSortableColumn="username" style="width:20%">
+                                Username <p-sortIcon field="Username" />
+                            </th>
+                            <th pSortableColumn="Fullname" style="width:15%">
+                                Name <p-sortIcon field="Fullname" />
+                            </th>
+                            <th pSortableColumn="Address" style="width:17%">
+                                Address <p-sortIcon field="Address" />
+                            </th>
+                            <th pSortableColumn="age" style="width:8%">
+                                Age <p-sortIcon field="age" />
+                            </th>
+                            <th pSortableColumn="phone_no" style="width:15%">
+                                Contact no. <p-sortIcon field="phone_no" />
+                            </th>
+                            <th style="width:15%; padding-left:6rem;">
+                                Actions
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-userData let-index as index>
+                        <tr>
+                            <td>{{ userData.Sno }}</td>
+                            <td tooltipPosition="top" pTooltip="{{ userData.username }}" style="width:20%"><img
+                                    [src]="'http://192.168.1.179/Layout365Data/Abhay/' + userData.image_path"
+                                    class="userImage" alt=""
+                                    onerror="this.onerror=null; this.src='../../assets/images/default.png';"> &nbsp;
+                                &nbsp; {{ truncateText(userData.username, 15) }}</td>
+                            <td tooltipPosition="top" pTooltip="{{ userData.Fullname }}">
+                                {{ truncateText(userData.Fullname, 15) }}
+                            </td>
+                            <td pTooltip="{{ userData.Address  }}" tooltipPosition="top" style="width:17%">{{
+                                truncateText(userData.Address,15)}}</td>
+                            <td style="width:8%">{{ userData.age }}</td>
+                            <td style="width:15%">{{ userData.phone_no }}</td>
+                            <td style="width: 25%; margin-right:10%">
+                                <p-button size="small" icon="pi pi-times" [rounded]="true" [text]="true"
+                                    (click)="confirm2(userData)" label="Delete" severity="danger" [outlined]="true" />
+                                &nbsp;
+                                <p-button class="delete-btn " (click)="showDialog(userData.username)" label="
+                                Edit" />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+
+            </ng-template>
+
+
+
+            <ng-template let-usersAllData pTemplate="grid">
+                <div class="grid grid-nogutter">
+                    <div class="col-3 sm:col-6 md:col-4 xl:col-6 p-2" *ngFor="let userData of usersAllData">
+
+                        <div class="p-4 border-1 surface-border surface-card border-round flex flex-column ">
+                            <div class="surface-50 flex justify-content-center border-round p-3">
+                                <div class="relative mx-auto">
+                                    <img [src]="'http://192.168.1.179/Layout365Data/Abhay/' + userData.image_path"
+                                        class="userImagetable" alt=""
+                                        onerror="this.onerror=null; this.src='../../assets/images/default.png';">
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="flex flex-row justify-content-between align-items-start gap-2">
+                                    <div>
+                                        <span class="font-medium text-secondary ">
+                                            <b> Username:</b> {{ userData.username}}
+                                        </span>
+                                        <div class="text-lg font-medium text-900 mt-1">{{ userData.Fullname }}</div>
+                                    </div>
+                                    <div class="surface-100 p-1" style="border-radius: 30px">
+                                        <div class="surface-0 flex align-items-center gap-4 justify-content-center py-1 px-2"
+                                            style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04),  rgba(0, 0, 0, 0.06)">
+                                            <span class="text-900 font-medium text-sm"> <b>Age:</b> {{ userData.age
+                                                }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row justify-content-between   gap-4 mt-4">
+                                    <span class="text-xl font-semibold">{{ userData.phone_no }}</span>
+                                    <div class="flex gap-2">
+                                        <p-button (click)="confirm2(userData)" label="Delete" severity="danger"
+                                            [outlined]="true" />
+                                        &nbsp;
+                                        <p-button class="delete-btn" (click)="showDialog(userData.username)"
+                                            label="Edit" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+        </p-dataView>
+    </div>
+
+
+</div>

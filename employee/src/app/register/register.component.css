@@ -1,0 +1,167 @@
+@import "primeicons/primeicons.css";
+
+.mainDiv {
+
+    display: flex;
+    height: 100%;
+    background-color: rgb(41 128 185);
+
+}
+
+h1 {
+    color: black;
+
+}
+
+.error-text {
+    color: red;
+    font-size: 12px;
+}
+
+.register {
+    background-color: white;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    border-radius: 10px;
+    width: 25%;
+}
+
+.register-page {
+    padding-top: 1rem;
+    align-items: center;
+    /* justify-content: center; */
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    color: red;
+}
+
+.login-content {
+    margin-top: 2rem;
+    display: flex;
+
+}
+
+.input-image {
+    display: none;
+}
+
+.userImage {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+
+
+}
+
+
+.login-content P {
+    color: #fff;
+    font-size: 0.8rem;
+
+}
+
+.link-text {
+    color: black !important;
+}
+
+
+.login-content .link-text:hover {
+    color: blue !important;
+    cursor: pointer;
+}
+
+.submit-container {
+    /* gap: 15px; */
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.btn {
+    width: 50%;
+    font-size: 18px;
+    border-radius: 20px;
+    border: none;
+    margin: 2rem 0 0;
+    position: relative;
+    background-color: rgb(41 128 185);
+    color: #fff;
+}
+
+.text-login {
+    color: black !important;
+}
+
+
+
+.login-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    margin: auto;
+
+
+}
+
+.welcome {
+    font-size: 4rem;
+    color: #fff;
+    font-weight: bold
+}
+
+.login-container {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    margin: auto;
+    padding: 2rem;
+    width: 27%;
+}
+
+.inp {
+    padding-left: 1rem;
+    width: 100%;
+    border: none;
+    height: 2.5rem;
+    border-radius: 5px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+}
+
+.inp-add {
+    padding-left: 1rem;
+    width: 100%;
+    /* margin: 8px 0; */
+    height: 2.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+    border: none;
+
+    border-radius: 5px;
+}
+
+.num {
+    padding-left: 1rem;
+    width: 100%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border: none;
+    /* display: flex; */
+    border-radius: 5px;
+}
+
+.form-content {
+    width: 80%;
+}
